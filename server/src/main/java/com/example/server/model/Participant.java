@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Participant {
 
     @Id
-
     private String id;
     @DBRef
     private User user; // Reference to User document using @DBRef
@@ -17,6 +16,10 @@ public class Participant {
     private String role; // "Organizer", "Speaker", "Attendee"
 
     // Getters, setters, and other methods omitted for brevity
+
+
+    public Participant() {
+    }
 
 
     public String getId() {

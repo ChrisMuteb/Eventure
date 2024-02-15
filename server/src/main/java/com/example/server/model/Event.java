@@ -15,15 +15,28 @@ public class Event {
     private String description;
     private Date date;
     private String location;
-    private String createdBy; // Reference string for user ID
-//    @DBRef // Add this annotation
-//    private User createdBy; // Reference to User document
-    @DBRef
-    private List<Task> tasks; // Embedded references with UUID IDs
-    @DBRef
-    private List<Participant> participants; // Embedded references with UUID IDs
+//    private String createdBy; // Reference string for user ID
+    @DBRef // Add this annotation
+    private User createdBy; // Reference to User document
+
+    private List<String> tasks; // Embedded references with UUID IDs
+
+    private List<String> participants; // Embedded references with UUID IDs
 
     // Getters, setters, and other methods omitted for brevity
+
+    public Event() {
+    }
+
+    public Event(String title, String description, Date date, String location, User createdBy, List<String> tasks, List<String> participants) {
+        this.title = title;
+        this.description = description;
+        this.date = date;
+        this.location = location;
+        this.createdBy = createdBy;
+        this.tasks = tasks;
+        this.participants = participants;
+    }
 
     public String getId() {
         return id;
@@ -65,36 +78,36 @@ public class Event {
         this.location = location;
     }
 
-//    public User getCreatedBy() {
-//        return createdBy;
-//    }
-//
-//    public void setCreatedBy(User createdBy) {
-//        this.createdBy = createdBy;
-//    }
-
-
-    public String getCreatedBy() {
+    public User getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(User createdBy) {
         this.createdBy = createdBy;
     }
 
-    public List<Task> getTasks() {
+
+//    public String getCreatedBy() {
+//        return createdBy;
+//    }
+//
+//    public void setCreatedBy(String createdBy) {
+//        this.createdBy = createdBy;
+//    }
+
+    public List<String> getTasks() {
         return tasks;
     }
 
-    public void setTasks(List<Task> tasks) {
+    public void setTasks(List<String> tasks) {
         this.tasks = tasks;
     }
 
-    public List<Participant> getParticipants() {
+    public List<String> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(List<Participant> participants) {
+    public void setParticipants(List<String> participants) {
         this.participants = participants;
     }
 }

@@ -17,6 +17,8 @@ public class Task {
     private Date deadline;
     @DBRef
     private Event event; // Reference to Event document using @DBRef
+    @DBRef
+    private User user;
 
     // Getters, setters, and other methods omitted for brevity
 
@@ -67,6 +69,14 @@ public class Task {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
 
