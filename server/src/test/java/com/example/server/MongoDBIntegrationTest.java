@@ -53,7 +53,6 @@ public class MongoDBIntegrationTest {
     @Test
     public void testAddTaskModel(){
         User user = new User("test", "test@example.com", "test", "dev");
-
         mongoTemplate.save(user, "users");
 
         Event event = new Event("Karaoke", "Pick any song and sing!",
