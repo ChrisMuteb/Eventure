@@ -1,23 +1,29 @@
-import Lottie from 'lottie-react';
 import './App.css';
-import animationData from './assets/Animation - 1708009463557.json'
-import { useRef } from 'react';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
+import CreateEvent from './pages/CreateEvent';
+import EventDetails from './pages/EventDetails';
+import EditEvent from './pages/EditEvent';
+import CreateTask from './pages/CreateTask';
+import UserProfile from './pages/UserProfile';
+
 
 function App() {
-  const phoneRef = useRef()
   return (
-    <div className="min-h-screen flex items-center justify-center lg:mx-48">
-      <div className='text-center space-y-4'>
-        <h1 className='text-4xl font-bold'>Eventure</h1>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path='/eventure/dashbard' element={<Dashboard />} />
+        <Route path='/eventure/event' element={<CreateEvent />} />
+        <Route path='/eventure/event/:event_id' element={<EventDetails />} />
+        <Route path='/eventure/event/:event_id/edit' element={<EditEvent />} />
+        <Route path='/eventure/event/task' element={<CreateTask />} />
+        <Route path='/eventure/user/:user_id' element={<UserProfile />} />
 
-        <p className='text-lg'>Unlocking Seamless Event Planning Experiences</p>
-        <div className='flex gap-2 justify-center'>
-          <button>Login</button>
-          <button>Sign up</button>
-        </div>
-        <Lottie lottieRef={phoneRef} animationData={animationData} />
-      </div>
-    </div>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
