@@ -1,6 +1,8 @@
 package com.example.server;
 
 import com.example.server.model.Event;
+import com.example.server.model.Participant;
+import com.example.server.model.Task;
 import com.example.server.model.User;
 import com.example.server.service.DatePrs.DateParser;
 import org.junit.jupiter.api.Test;
@@ -21,7 +23,7 @@ public class MongoDBIntegrationTest {
     @Test
     public void testCollectionExists(){
         assertTrue(mongoTemplate.collectionExists("users"));
-//        assertTrue(mongoTemplate.collectionExists("events"));
+        assertTrue(mongoTemplate.collectionExists("events"));
     }
     @Test
     public void testAddUserModel(){
@@ -50,12 +52,41 @@ public class MongoDBIntegrationTest {
 
     @Test
     public void testAddTaskModel(){
+        User user = new User("test", "test@example.com", "test", "dev");
 
+        mongoTemplate.save(user, "users");
+
+        Event event = new Event("Karaoke", "Pick any song and sing!",
+                DateParser.parseDate("2024-02-20T18:00:00.000Z"), "Lyon",user,
+                Arrays.asList(""),
+                Arrays.asList(""));
+        mongoTemplate.save(event);
+
+        // String title, String description, String status, Date deadline, Event event, User user
+        Task task = new Task("Collect Mics", "Go to Paris and get some mics", "IN PROGRESS",
+                DateParser.parseDate("2024-02-20T18:00:00.000Z"),
+                event, user);
+        mongoTemplate.save(task);
+        Task task2 = new Task("Collect Speakers", "Go to Paris and get some amplifiers", "IN PROGRESS",
+                DateParser.parseDate("2024-02-20T18:00:00.000Z"),
+                event, user);
+        mongoTemplate.save(task2);
     }
 
     @Test
     public void testAddParticipantModel(){
+        User user = new User("Carl", "carl@example.com", "carl", "dev");
+        mongoTemplate.save(user, "users");
 
+        Event event = new Event("Gaming Night", "Friday night is the night!",
+                DateParser.parseDate("2024-02-20T18:00:00.000Z"), "Marseille",user,
+                Arrays.asList(""),
+                Arrays.asList(""));
+        mongoTemplate.save(event);
+        //User user, Event event, String role
+        Participant participant = new Participant(user, event, "Attendee");
+//        Participant participant2 = new Participant(user, event, "Attendee");
+        mongoTemplate.save(participant);
     }
 
     @Test

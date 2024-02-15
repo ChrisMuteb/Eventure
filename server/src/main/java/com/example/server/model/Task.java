@@ -23,6 +23,18 @@ public class Task {
     // Getters, setters, and other methods omitted for brevity
 
 
+    public Task() {
+    }
+
+    public Task(String title, String description, String status, Date deadline, Event event, User user) {
+        this.title = title;
+        this.description = description;
+        this.status = status;
+        this.deadline = deadline;
+        this.event = event;
+        this.user = user;
+    }
+
     public String getId() {
         return id;
     }

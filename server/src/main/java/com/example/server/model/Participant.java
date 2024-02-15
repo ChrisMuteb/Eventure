@@ -17,10 +17,14 @@ public class Participant {
 
     // Getters, setters, and other methods omitted for brevity
 
-
     public Participant() {
     }
 
+    public Participant(User user, Event event, String role) {
+        this.user = user;
+        this.event = event;
+        this.role = role;
+    }
 
     public String getId() {
         return id;
