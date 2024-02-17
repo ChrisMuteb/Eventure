@@ -1,31 +1,57 @@
-import React from 'react';
-// import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
-
+import { useLocation, Link } from 'react-router-dom';
+import axios from 'axios';
 
 function Dashboard() {
+    const location = useLocation();
+    const { user, events } = location.state || {};
+    const [tasks, setTasks] = useState([]);
+
+    useEffect(() => {
+        const fetchTasks = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8081/task/${user.id}`);
+                setTasks(response.data || []);
+            } catch (error) {
+                console.error('Error fetching tasks:', error);
+            }
+        };
+
+        fetchTasks();
+    }, [user.id]);
+
+    if (!user) {
+        console.warn('Dashboard received no user data from Home page.');
+        return null;
+    }
+
     return (
-        <div>
+        <div className='bg-gray-300'>
             <Navbar />
-            <div>
-                <div>
-                    <h1>Welcome, [User Name]</h1>
-                    <button>Create New Event</button>
+            <div className=' h-screen w-5/6 mx-auto '>
+                <div className='flex justify-between m-9'>
+                    <h1 className='font-bold'>Welcome, [{user.name || 'User Name'}]</h1>
+                    <Link to={`/eventure/eventcreate/${user.id}`} className='bg-blue-500 text-white p-3 border rounded'>
+                        Create New Event
+                    </Link>
+
                 </div>
-                <div>
-                    <h3>Upcoming Events</h3>
-                    <p>Event 1: Conference on Web Development - Date: 2024-02-15</p>
-                    <p>Event 2: Tech Networking Meetup - Date: 2024-03005</p>
+                <div className='bg-white p-9 rounded'>
+                    <h3 className='font-bold p-3'>Upcoming Events</h3>
+                    {events.map((event, index) => (
+                        <p key={event.id} className='m-3'>Event {index + 1}: {event.title} - Date: {event.date.split('T')[0]}</p>
+                    ))}
                 </div>
-                <div>
-                    <h3>Your Tasks</h3>
-                    <p>Task 1: Prepare presentation for the conference</p>
-                    <p>Task 2: Coordinate with tech meetup speakers</p>
+                <div className='bg-white mt-6 p-9 rounded'>
+                    <h3 className='font-bold p-3'>Your Tasks</h3>
+                    {tasks.map((task, index) => (
+                        <p key={task.id} className='bg-gray-300 m-3 p-3'>Task {index + 1}: {task.description}</p>
+                    ))}
                 </div>
             </div>
-
         </div>
-    )
+    );
 }
 
-export default Dashboard
+export default Dashboard;

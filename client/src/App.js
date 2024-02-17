@@ -15,8 +15,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path='/eventure/dashbard' element={<Dashboard />} />
-        <Route path='/eventure/event' element={<CreateEvent />} />
+        <Route path='/eventure/dashboard' element={<Dashboard />} />
+        <Route path='/eventure/eventcreate/:user_id' element={<CreateEvent />} />
         <Route path='/eventure/event/:event_id' element={<EventDetails />} />
         <Route path='/eventure/event/:event_id/edit' element={<EditEvent />} />
         <Route path='/eventure/event/task' element={<CreateTask />} />
