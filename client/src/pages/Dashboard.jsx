@@ -8,6 +8,8 @@ function Dashboard() {
     const { user, events } = location.state || {};
     const [tasks, setTasks] = useState([]);
 
+    console.log(events);
+
     useEffect(() => {
         const fetchTasks = async () => {
             try {
@@ -35,13 +37,15 @@ function Dashboard() {
                     <Link to={`/eventure/eventcreate/${user.id}`} className='bg-blue-500 text-white p-3 border rounded'>
                         Create New Event
                     </Link>
-
                 </div>
                 <div className='bg-white p-9 rounded'>
                     <h3 className='font-bold p-3'>Upcoming Events</h3>
                     {events.map((event, index) => (
-                        <p key={event.id} className='m-3'>Event {index + 1}: {event.title} - Date: {event.date.split('T')[0]}</p>
+                        <p key={event.id} className='m-3'>
+                            Event {index + 1}: {event.title} - Date: {event.date ? event.date.split('T')[0] : 'N/A'}
+                        </p>
                     ))}
+
                 </div>
                 <div className='bg-white mt-6 p-9 rounded'>
                     <h3 className='font-bold p-3'>Your Tasks</h3>

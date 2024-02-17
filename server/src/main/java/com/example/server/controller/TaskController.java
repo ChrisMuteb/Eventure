@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,8 +17,8 @@ public class TaskController {
     private TaskService taskService;
 
     @GetMapping
-    public String testTask() {
-        return "Task Controller";
+    public List<Task> getAllTasks() {
+        return taskService.getAllTasks();
     }
 
     @PostMapping
@@ -28,7 +29,10 @@ public class TaskController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Task> getAllTasks(@PathVariable("id") String id) {
-        return taskService.getAllTasks(id);
+    public List<Task> getMyTasks(@PathVariable("id") String id) {
+        List<Task> myTasks = taskService.getMyTasks(id);
+        if(myTasks.size() < 1)
+            return null;
+        return myTasks;
     }
 }

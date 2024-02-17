@@ -44,8 +44,8 @@ public class MongoDBIntegrationTest {
         // String title, String description, Date date, String location, User createdBy, List<String> tasks, List<String> participants
         Event event1 = new Event("BFD party", "It is John's BFD",
                 DateParser.parseDate("2024-02-20T18:00:00.000Z"), "Paris",user2,
-                Arrays.asList("Get cake", "buy ballon"),
-                Arrays.asList("John", "Sam"));
+                Arrays.asList(""),
+                Arrays.asList(""));
 
         mongoTemplate.save(event1, "events");
     }

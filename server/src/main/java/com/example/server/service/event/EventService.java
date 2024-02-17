@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface EventService {
     Event save(Event event);
-    List<Event> findAllEventsSortedByDate();
+    List<Event> findAllEvents();
 }

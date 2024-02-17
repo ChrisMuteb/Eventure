@@ -19,13 +19,23 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public List<Task> getAllTasks(String id) {
-        List<Task> tasks = taskRepository.findAll();
+    public List<Task> getAllTasks() {
+        return taskRepository.findAll();
+    }
+    public List<Task> getMyTasks(String id){
+        List<Task> tasks = getAllTasks();
         List<Task> myTasks = new ArrayList<>();
+
+        if(tasks.size() < 1)
+            return null;
+
         for(Task task : tasks){
-            if(task.getUser().getId().equals(id) ){
+//            if(task.getUser().getId().equals(id) ){
+//                myTasks.add(task);
+//            }
+            if(task.getEvent().getCreatedBy().getId().equals(id))
                 myTasks.add(task);
-            }
+                
         }
         return myTasks;
     }

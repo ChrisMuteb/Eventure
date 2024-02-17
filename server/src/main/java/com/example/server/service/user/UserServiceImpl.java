@@ -6,6 +6,7 @@ import com.example.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,5 +28,10 @@ public class UserServiceImpl implements UserService{
             // Handle the case where user is not found (e.g., throw exception, return null, log error)
             throw new UserNotFoundException("User with id " + id + " not found");
         }
+    }
+
+    @Override
+    public List<User> allUsers() {
+        return userRepository.findAll();
     }
 }

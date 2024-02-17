@@ -17,12 +17,12 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
-    public List<Event> findAllEventsSortedByDate() {
+    public List<Event> findAllEvents() {
         // Fetch all events using the repository
         List<Event> events = eventRepository.findAll();
 
         // Sort events by date in descending order (latest first)
-        events.sort((event1, event2) -> event2.getDate().compareTo(event1.getDate()));
+//        events.sort((event1, event2) -> event2.getDate().compareTo(event1.getDate()));
 
         return events;
     }

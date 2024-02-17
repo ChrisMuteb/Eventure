@@ -25,6 +25,7 @@ const Home = () => {
 
             // Fetch event data (replace with your specific API endpoint)
             const eventsResponse = await axios.get('http://localhost:8081/event');
+            console.log('Events response:', eventsResponse.data); // Log events data
 
             // Extract user and event values from responses
             const user = userResponse.data;
@@ -45,6 +46,7 @@ const Home = () => {
             console.error(error); // Log error for troubleshooting
         }
     };
+
 
     return (
         <div className="min-h-screen flex items-center justify-center lg:mx-48">

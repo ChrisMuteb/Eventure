@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface TaskService {
     Task save(Task task);
-    List<Task> getAllTasks(String id);
+    List<Task> getAllTasks();
+    List<Task> getMyTasks(String id);
 }

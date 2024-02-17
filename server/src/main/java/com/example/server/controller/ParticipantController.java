@@ -7,6 +7,8 @@ import com.example.server.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/participant")
 public class ParticipantController {
@@ -14,8 +16,8 @@ public class ParticipantController {
     private ParticipantService participantService;
 
     @GetMapping
-    public String testParticipant(){
-        return "Participant controller";
+    public List<Participant> allParticpants(){
+        return participantService.allParticipant();
     }
 
     @PostMapping

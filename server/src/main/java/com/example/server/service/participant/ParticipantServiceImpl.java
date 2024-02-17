@@ -5,6 +5,8 @@ import com.example.server.repository.ParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ParticipantServiceImpl implements ParticipantService{
     @Autowired
@@ -13,5 +15,10 @@ public class ParticipantServiceImpl implements ParticipantService{
     @Override
     public Participant save(Participant participant) {
         return participantRepository.save(participant);
+    }
+
+    @Override
+    public List<Participant> allParticipant() {
+        return participantRepository.findAll();
     }
 }

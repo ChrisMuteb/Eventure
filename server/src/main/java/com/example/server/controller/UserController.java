@@ -5,6 +5,8 @@ import com.example.server.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -12,8 +14,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public String testUser(){
-        return "User controller";
+    public List<User> allUsers(){
+        return userService.allUsers();
     }
 
     @PostMapping
