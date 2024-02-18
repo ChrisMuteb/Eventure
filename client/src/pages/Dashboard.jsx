@@ -8,13 +8,14 @@ function Dashboard() {
     const { user, events } = location.state || {};
     const [tasks, setTasks] = useState([]);
 
-    console.log(events);
+
 
     useEffect(() => {
         const fetchTasks = async () => {
             try {
                 const response = await axios.get(`http://localhost:8081/task/${user.id}`);
                 setTasks(response.data || []);
+                console.log('dashbaord user.id: ', user.id);
             } catch (error) {
                 console.error('Error fetching tasks:', error);
             }
@@ -30,7 +31,7 @@ function Dashboard() {
 
     return (
         <div className='bg-gray-300'>
-            <Navbar />
+            <Navbar user={user.id} />
             <div className=' h-screen w-5/6 mx-auto '>
                 <div className='flex justify-between m-9'>
                     <h1 className='font-bold'>Welcome, [{user.name || 'User Name'}]</h1>

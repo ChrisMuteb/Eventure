@@ -6,6 +6,7 @@ import com.example.server.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,6 +73,17 @@ public class EventServiceImpl implements EventService{
             // Event not found, handle accordingly (throw exception, log error, etc.)
             throw new UserNotFoundException("Event with id " + id + " not found");
         }
+    }
+
+    @Override
+    public List<Event> AllMyEvents(String id) {
+        List<Event> allEvents = findAllEvents();
+        List<Event> myEvents = new ArrayList<>();
+        for(Event e : allEvents){
+            if(e.getCreatedBy().getId().equals(id))
+                myEvents.add(e);
+        }
+        return myEvents;
     }
 
 

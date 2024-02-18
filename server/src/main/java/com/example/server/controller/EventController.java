@@ -21,7 +21,6 @@ public class EventController {
     private EventService eventService;
     @Autowired
     private UserService userService;
-
     @PostMapping
     public ResponseEntity<String> createEvent(@RequestBody Map<String, Object> requestPayload) {
         try {
@@ -71,5 +70,11 @@ public class EventController {
         eventService.updateEvent(eID,new Event(title, description, DateParser.parseDate(date.concat("T18:00:00.000Z")), location, userService.getUser(createdBy), Arrays.asList(""), participants ));
 
         return new ResponseEntity<>("Event created successfully", HttpStatus.OK);
+    }
+
+    @GetMapping("/myEvents/{id}")
+    public List<Event> myEvents(@PathVariable("id") String id){
+
+        return eventService.AllMyEvents(id);
     }
 }

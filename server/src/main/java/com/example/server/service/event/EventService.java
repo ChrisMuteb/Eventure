@@ -10,4 +10,5 @@ public interface EventService {
     Event getEvent(String id);
     String deleteEvent(String id);
     Event updateEvent(String id , Event updatedEvent);
+    List<Event> AllMyEvents(String id);
 }
