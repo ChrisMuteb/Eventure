@@ -1,11 +1,13 @@
 package com.example.server.service.event;
 
+import com.example.server.exception.UserNotFoundException;
 import com.example.server.model.Event;
 import com.example.server.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EventServiceImpl implements EventService{
@@ -26,4 +28,51 @@ public class EventServiceImpl implements EventService{
 
         return events;
     }
+
+    @Override
+    public Event getEvent(String id) {
+        Optional<Event> event = eventRepository.findById(id);
+        if(event.isPresent()){
+            return event.get();
+        }
+        else {
+            // Handle the case where user is not found (e.g., throw exception, return null, log error)
+            throw new UserNotFoundException("Event with id " + id + " not found");
+        }
+    }
+    @Override
+    public String deleteEvent(String id) {
+        Event event = getEvent(id);
+        if (event != null) {
+            eventRepository.delete(event);
+            return "Event successfully deleted";
+        } else {
+            return "Event not found";
+        }
+    }
+
+    @Override
+    public Event updateEvent(String id, Event updatedEvent) {
+        Optional<Event> optionalExistingEvent = eventRepository.findById(id);
+
+        if (optionalExistingEvent.isPresent()) {
+            Event existingEvent = optionalExistingEvent.get();
+            existingEvent.setTitle(updatedEvent.getTitle());
+            existingEvent.setDate(updatedEvent.getDate());
+            existingEvent.setLocation(updatedEvent.getLocation());
+            existingEvent.setDescription(updatedEvent.getDescription());
+            existingEvent.setCreatedBy(updatedEvent.getCreatedBy());
+            existingEvent.setParticipants(updatedEvent.getParticipants());
+            existingEvent.setTasks(updatedEvent.getTasks());
+            // ... (update other fields)
+
+            // Save the updated event to the database
+            return eventRepository.save(existingEvent);
+        } else {
+            // Event not found, handle accordingly (throw exception, log error, etc.)
+            throw new UserNotFoundException("Event with id " + id + " not found");
+        }
+    }
+
+
 }

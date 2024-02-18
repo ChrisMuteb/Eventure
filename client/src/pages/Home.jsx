@@ -16,7 +16,7 @@ const Home = () => {
             console.log('Authentication successfully completed!');
 
             // Fetch user data (replace with your specific API endpoint)
-            const userResponse = await axios.get('http://localhost:8081/user/65ce0fe7545cfe0111126018');
+            const userResponse = await axios.get('http://localhost:8081/user/65ce12f35773283775c7ab9b');
 
             if (!userResponse.data.id) {
                 alert('User data not found.');

@@ -28,6 +28,17 @@ public class Event {
     public Event() {
     }
 
+    public Event(String id, String title, String description, Date date, String location, User createdBy, List<String> tasks, List<String> participants) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.date = date;
+        this.location = location;
+        this.createdBy = createdBy;
+        this.tasks = tasks;
+        this.participants = participants;
+    }
+
     public Event(String title, String description, Date date, String location, User createdBy, List<String> tasks, List<String> participants) {
         this.title = title;
         this.description = description;

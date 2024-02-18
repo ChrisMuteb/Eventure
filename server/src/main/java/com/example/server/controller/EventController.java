@@ -46,4 +46,30 @@ public class EventController {
     public List<Event> getAllEvents(){
         return eventService.findAllEvents();
     }
+    @GetMapping("/{id}")
+    public Event getEvent(@PathVariable("id") String id){
+        return eventService.getEvent(id);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteEvent(@PathVariable("id") String id){
+        String result = eventService.deleteEvent(id);
+        HttpStatus status = result.equals("Event successfully deleted") ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+        return new ResponseEntity<>(result, status);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateEvent(@PathVariable("id") String id, @RequestBody Map<String, Object> requestPayload){
+        // Extract data from the request payload
+        String eID = id;
+        String title = (String) requestPayload.get("title");
+        String date = (String) requestPayload.get("date");
+        String location = (String) requestPayload.get("location");
+        String description = (String) requestPayload.get("description");
+        String createdBy = (String) requestPayload.get("createdBy");
+        List<String> participants = (List<String>) requestPayload.get("participants");
+
+        eventService.updateEvent(eID,new Event(title, description, DateParser.parseDate(date.concat("T18:00:00.000Z")), location, userService.getUser(createdBy), Arrays.asList(""), participants ));
+
+        return new ResponseEntity<>("Event created successfully", HttpStatus.OK);
+    }
 }

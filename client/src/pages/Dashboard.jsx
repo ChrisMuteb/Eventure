@@ -42,7 +42,10 @@ function Dashboard() {
                     <h3 className='font-bold p-3'>Upcoming Events</h3>
                     {events.map((event, index) => (
                         <p key={event.id} className='m-3'>
-                            Event {index + 1}: {event.title} - Date: {event.date ? event.date.split('T')[0] : 'N/A'}
+                            Event {index + 1}:{' '}
+                            <Link to={`/eventure/eventdetails/${event.id}`}>
+                                {event.title} - Date: {event.date ? event.date.split('T')[0] : 'N/A'}
+                            </Link>
                         </p>
                     ))}
 

@@ -35,7 +35,7 @@ public class TaskServiceImpl implements TaskService{
 //            }
             if(task.getEvent().getCreatedBy().getId().equals(id))
                 myTasks.add(task);
-                
+
         }
         return myTasks;
     }
