@@ -12,10 +12,22 @@ const UserProfile = () => {
     useEffect(() => {
         const fetchEventDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:8081/user/${user_id}`);
+
+                // const response = await axios.get(`http://localhost:8081/user/${user_id}`);
+                const access_token = localStorage.getItem('access_token');
+                const response = await axios.get(`http://localhost:8080/apiman-gateway/EventureLTD/EventureAPIMan/1.0/user/${user_id}`, {
+                    headers: {
+                        Authorization: `Bearer ${access_token}`,
+                    },
+                })
                 setUser(response.data || null);
 
-                const result = await axios.get('http://localhost:8081/user');
+                // const result = await axios.get('http://localhost:8081/user');
+                const result = await axios.get('http://localhost:8080/apiman-gateway/EventureLTD/EventureAPIMan/1.0/user', {
+                    headers: {
+                        Authorization: `Bearer ${access_token}`,
+                    },
+                })
                 setUsers(result.data || null);
             } catch (error) {
                 console.error('Error fetching event details:', error);

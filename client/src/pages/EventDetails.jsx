@@ -14,7 +14,13 @@ function EventDetails() {
     useEffect(() => {
         const fetchEventDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:8081/event/${event_id}`);
+                // const response = await axios.get(`http://localhost:8081/event/${event_id}`);
+                const access_token = localStorage.getItem('access_token');
+                const response = await axios.get(`http://localhost:8080/apiman-gateway/EventureLTD/EventureAPIMan/1.0/event/${event_id}`, {
+                    headers: {
+                        Authorization: `Bearer ${access_token}`,
+                    },
+                })
                 setEvent(response.data || null);
             } catch (error) {
                 console.error('Error fetching event details:', error);
@@ -35,7 +41,14 @@ function EventDetails() {
     const onDelete = async () => {
         try {
             // Make an API call to delete the event
-            await axios.delete(`http://localhost:8081/event/${event_id}`);
+            // await axios.delete(`http://localhost:8081/event/${event_id}`);
+            const access_token = localStorage.getItem('access_token');
+            await axios.delete(`http://localhost:8080/apiman-gateway/EventureLTD/EventureAPIMan/1.0/event/${event_id}`, {
+                headers: {
+                    Authorization: `Bearer ${access_token}`,
+                },
+            })
+            console.log('Event details delete: ', event_id);
             // Redirect to a page after successful deletion
             navigate('/');
         } catch (error) {

@@ -9,6 +9,7 @@ import EditEvent from './pages/EditEvent';
 import CreateTask from './pages/CreateTask';
 import UserProfile from './pages/UserProfile';
 import MyEvents from './pages/MyEvents';
+import Login from './pages/Login';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path='/eventure/event/:event_id/edit' element={<EditEvent />} />
         <Route path='/eventure/event/task/:user_id' element={<CreateTask />} />
         <Route path='/eventure/user/:user_id' element={<UserProfile />} />
+        <Route path='/eventure/login' element={<Login />} />
 
       </Routes>
     </BrowserRouter>

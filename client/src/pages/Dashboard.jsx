@@ -8,12 +8,31 @@ function Dashboard() {
     const { user, events } = location.state || {};
     const [tasks, setTasks] = useState([]);
 
-
+    /**
+     * // Store tokens in local storage (or use a more secure storage solution)
+                localStorage.setItem('access_token', access_token);
+                localStorage.setItem('refresh_token', refresh_token);
+    
+                // Fetch user and events data with the access token in the headers
+                const userResponse = await axios.get('http://localhost:8080/apiman-gateway/EventureLTD/EventureAPIMan/1.0/user/65ce0fe7545cfe0111126018', {
+                    headers: {
+                        Authorization: `Bearer ${access_token}`,
+                    },
+                });
+     */
 
     useEffect(() => {
         const fetchTasks = async () => {
             try {
-                const response = await axios.get(`http://localhost:8081/task/${user.id}`);
+                const access_token = localStorage.getItem('access_token');
+                // const response = await axios.get(`http://localhost:8081/task/${user.id}`);
+                if (!user.id)
+                    user.id = '65cdd14d28a6f4162a02bad4';
+                const response = await axios.get(`http://localhost:8080/apiman-gateway/EventureLTD/EventureAPIMan/1.0/task/${user.id}`, {
+                    headers: {
+                        Authorization: `Bearer ${access_token}`,
+                    },
+                })
                 setTasks(response.data || []);
                 console.log('dashbaord user.id: ', user.id);
             } catch (error) {

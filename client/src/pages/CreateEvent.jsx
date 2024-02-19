@@ -20,12 +20,24 @@ function CreateEvent() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        const access_token = localStorage.getItem('access_token');
+
         const fetchUsers = async () => {
             try {
-                const response = await axios.get('http://localhost:8081/user');
+                // const response = await axios.get('http://localhost:8081/user');
+                const response = await axios.get('http://localhost:8080/apiman-gateway/EventureLTD/EventureAPIMan/1.0/user', {
+                    headers: {
+                        Authorization: `Bearer ${access_token}`,
+                    },
+                })
                 setUsers(response.data || []);
 
-                const responseParticipants = await axios.get('http://localhost:8081/participant');
+                // const responseParticipants = await axios.get('http://localhost:8081/participant');
+                const responseParticipants = await axios.get('http://localhost:8080/apiman-gateway/EventureLTD/EventureAPIMan/1.0/participant', {
+                    headers: {
+                        Authorization: `Bearer ${access_token}`,
+                    },
+                })
                 setEventParticipants(responseParticipants.data || []);
             } catch (error) {
                 console.error('Error fetching users and participants:', error);
@@ -40,6 +52,8 @@ function CreateEvent() {
 
 
     const handleSubmit = async (e) => {
+        const access_token = localStorage.getItem('access_token');
+
         e.preventDefault();
 
         const eventData = {
@@ -53,7 +67,12 @@ function CreateEvent() {
         };
 
         try {
-            const response = await axios.post('http://localhost:8081/event', eventData);
+            // const response = await axios.post('http://localhost:8081/event', eventData);
+            const response = await axios.post('http://localhost:8080/apiman-gateway/EventureLTD/EventureAPIMan/1.0/event', eventData, {
+                headers: {
+                    Authorization: `Bearer ${access_token}`,
+                },
+            })
             console.log('Event created successfully:', response.data);
 
             if (response) {
@@ -61,8 +80,18 @@ function CreateEvent() {
 
                 // Check if id is defined before making the axios request
                 if (user_id) {
-                    const userResponse = await axios.get(`http://localhost:8081/user/${user_id}`);
-                    const eventsResponse = await axios.get('http://localhost:8081/event');
+                    // const userResponse = await axios.get(`http://localhost:8081/user/${user_id}`);
+                    const userResponse = await axios.get(`http://localhost:8080/apiman-gateway/EventureLTD/EventureAPIMan/1.0/user/${user_id}`, {
+                        headers: {
+                            Authorization: `Bearer ${access_token}`,
+                        },
+                    })
+                    // const eventsResponse = await axios.get('http://localhost:8081/event');
+                    const eventsResponse = await axios.get('http://localhost:8080/apiman-gateway/EventureLTD/EventureAPIMan/1.0/event', {
+                        headers: {
+                            Authorization: `Bearer ${access_token}`,
+                        },
+                    })
                     console.log('Events response:', eventsResponse.data); // Log events data
 
                     // Extract user and event values from responses

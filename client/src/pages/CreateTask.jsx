@@ -22,7 +22,13 @@ function CreateTask() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:8081/event');
+                // const response = await axios.get('http://localhost:8081/event');
+                const access_token = localStorage.getItem('access_token');
+                const response = await axios.get('http://localhost:8080/apiman-gateway/EventureLTD/EventureAPIMan/1.0/event', {
+                    headers: {
+                        Authorization: `Bearer ${access_token}`,
+                    },
+                })
                 const eventsData = response.data;
                 if (eventsData !== null) {
                     setEvents(eventsData);
@@ -35,10 +41,7 @@ function CreateTask() {
 
         fetchData();
 
-        // If you need to perform cleanup, return a function here
-        return () => {
-            // Cleanup code, if needed
-        };
+
     }, []); // Empty dependency array to run the effect only once on mount
 
 
@@ -58,7 +61,6 @@ function CreateTask() {
             console.log('Task created successfully:', response.data);
 
             if (response) {
-                // console.log('id: ', user_id);
 
                 // Check if id is defined before making the axios request
                 if (response.data.id) {

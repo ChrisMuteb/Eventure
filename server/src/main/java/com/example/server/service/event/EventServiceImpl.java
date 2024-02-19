@@ -2,7 +2,9 @@ package com.example.server.service.event;
 
 import com.example.server.exception.UserNotFoundException;
 import com.example.server.model.Event;
+import com.example.server.model.Task;
 import com.example.server.repository.EventRepository;
+import com.example.server.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ import java.util.Optional;
 public class EventServiceImpl implements EventService{
     @Autowired
     private EventRepository eventRepository;
+    @Autowired
+    private TaskRepository taskRepository;
     @Override
     public Event save(Event event) {
         return eventRepository.save(event);
@@ -44,6 +48,11 @@ public class EventServiceImpl implements EventService{
     @Override
     public String deleteEvent(String id) {
         Event event = getEvent(id);
+        List<Task> taskList = taskRepository.findAll();
+        for(Task task : taskList){
+            if(task.getEvent().getId().equals(id))
+                taskRepository.delete(task);
+        }
         if (event != null) {
             eventRepository.delete(event);
             return "Event successfully deleted";
